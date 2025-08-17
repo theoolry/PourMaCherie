@@ -89,9 +89,14 @@ function startFalling() {
 // --- Texte spécial qui tombe très souvent ---
 function createSpecialText() {
   const container = document.getElementById("falling-container");
+
+  // Limiter le nombre de textes sur mobile
+  const isMobile = window.innerWidth <= 480;
+  if (isMobile && Math.random() > 0.4) return; // ~60% des appels ignorés
+
   const el = document.createElement("div");
   el.classList.add("falling", "special-text");
-  el.textContent = "𝒥𝑒 𝓉'𝒶𝒾𝓂𝑒 𝓉𝓇𝑜𝓅𝓅𝓅𝓅𝓅𝓅𝓅 ღ ღ 𓆉";
+  el.textContent = "𝒥𝑒 𝓉'𝒶𝒾𝓂𝑒 𝓉𝓇𝓸𝓅𝓅𝓅𝓅𝓅𝓅𝓅 ღ ღ 𓆉";
 
   if (window.purpleActive) {
     el.style.color = "#BA55D3";
@@ -111,14 +116,14 @@ setInterval(createSpecialText, 200);
 function launchFinalSequence() {
   const container = document.getElementById("falling-container");
 
-  // 1️⃣ Texte central bleu
+  // Texte final bleu
   const finalText = document.createElement("div");
   finalText.textContent = "𝓓𝒆 𝓵𝓪 𝓹𝓪𝓻𝓽 𝓭𝒆 𝓽𝓸𝓷 𝓬𝓱𝓪𝓽𝓸𝓷";
   finalText.style.position = "fixed";
   finalText.style.top = "50%";
   finalText.style.left = "50%";
   finalText.style.transform = "translate(-50%, -50%)";
-  finalText.style.fontSize = "3em";
+  finalText.style.fontSize = window.innerWidth <= 480 ? "2em" : "3em";
   finalText.style.color = "#00BFFF";
   finalText.style.textShadow = "0 0 10px #00BFFF, 0 0 20px #1E90FF";
   finalText.style.opacity = "0";
@@ -129,29 +134,31 @@ function launchFinalSequence() {
   setTimeout(() => { finalText.style.opacity = "0"; }, 3100);
   setTimeout(() => { finalText.remove(); }, 3600);
 
-  // 2️⃣ Images au centre en fondu, contours légèrement flous
- // Images au centre en fondu, bords légèrement flous
-const images = ["6.jpg","9.jpg","10.jpg","11.jpg","12.jpg"];
-images.forEach((imgSrc, index) => {
-  setTimeout(() => {
-    const img = document.createElement("img");
-    img.src = imgSrc;
-    img.style.position = "fixed";
-    img.style.top = "50%";
-    img.style.left = "50%";
-    img.style.transform = "translate(-50%, -50%)";
-    img.style.width = "200px";
-    img.style.height = "auto";
-    img.style.opacity = "0";
-    img.style.transition = "opacity 0.8s";
+  // Images finales au centre avec bord légèrement flou
+  const images = ["6.jpg","9.jpg","10.jpg","11.jpg","12.jpg"];
+  images.forEach((imgSrc, index) => {
+    setTimeout(() => {
+      const img = document.createElement("img");
+      img.src = imgSrc;
+      img.style.position = "fixed";
+      img.style.top = "50%";
+      img.style.left = "50%";
+      img.style.transform = "translate(-50%, -50%)";
+      img.style.height = "auto";
+      img.style.opacity = "0";
+      img.style.transition = "opacity 0.8s";
 
-    // ✅ Très léger flou sur les bords
-    img.style.boxShadow = "0 0 5px 2px rgba(255,255,255,0.2)";
-    img.style.borderRadius = "3px"; // coins légèrement arrondis
+      // Taille responsive
+      if (window.innerWidth <= 480) img.style.width = "120px";
+      else if (window.innerWidth <= 768) img.style.width = "150px";
+      else img.style.width = "200px";
 
-    container.appendChild(img);
-    setTimeout(() => { img.style.opacity = "1"; }, 50);
-  }, 3700 + index * 2000); // délai entre images
-});
+      // Flou très léger sur les bords
+      img.style.boxShadow = "0 0 3px 1px rgba(255,255,255,0.15)";
+      img.style.borderRadius = "3px";
 
+      container.appendChild(img);
+      setTimeout(() => { img.style.opacity = "1"; }, 50);
+    }, 3700 + index * 2000);
+  });
 }
