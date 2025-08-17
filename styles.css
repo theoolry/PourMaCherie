@@ -1,0 +1,157 @@
+/* 🌌 Fond étoilé */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  font-family: 'Arial', sans-serif;
+  background-image:
+    radial-gradient(white 1px, transparent 1px),
+    radial-gradient(white 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-position: 0 0, 25px 25px;
+}
+
+/* ✨ Glow romantique, plus doux et rose-violet */
+#glow {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 105, 180, 0.15) 0%,
+    rgba(186, 85, 211, 0.10) 40%,
+    transparent 80%
+  );
+  pointer-events: none;
+  z-index: 0;
+  animation: pulseGlow 8s ease-in-out infinite;
+  filter: blur(60px);
+  opacity: 0.5;
+}@keyframes pulseGlow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+/* 🌠 Conteneur des éléments animés (images + texte) */
+#falling-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10; /* au-dessus du glow */
+}
+
+/* 🌌 Élément qui tombe */
+.falling {
+  position: absolute;
+  animation-name: fall;
+  animation-timing-function: linear;
+  opacity: 0;
+  animation-fill-mode: forwards;
+  z-index: 15; /* au-dessus du conteneur */
+}
+
+/* 📷 Images */
+.falling.image {
+  width: 80px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+  animation-name: fall, fadeIn;
+}
+
+/* 💬 Texte "Je t’aime ❤️❤️" */
+.falling.text {
+  color: white;
+  font-size: 1.5em;
+  text-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
+  font-weight: bold;
+  animation-name: fall, fadeIn;
+}
+
+/* 🌌 Animation de chute */
+@keyframes fall {
+  0% {
+    top: -100px;
+    opacity: 0;
+    transform: translateY(0) scale(1);
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    top: 100vh;
+    opacity: 0;
+    transform: translateY(100vh) scale(1.05);
+  }
+
+}
+.scroll-text {
+  display: inline-block;
+  white-space: pre-line;
+  color: white;
+  font-size: 1em;
+  line-height: 1.3em;
+  animation: scrollUp 30s linear infinite;
+  text-shadow:
+    0 0 8px rgba(186, 85, 211, 0.6),    /* glow violet doux */
+    0 0 15px rgba(255, 105, 180, 0.4);  /* glow rose romantique */
+}
+/* ✨ Animation fondu */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
+.scroll-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30%;  /* 👈 plus étroit = moins de mots par ligne */
+  height: 100px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  mask-image: linear-gradient(to bottom, transparent, white 25%, white 75%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, white 25%, white 75%, transparent);
+  z-index: 20;
+  text-align: center;
+}
+
+.scroll-text {
+  display: inline-block;
+  white-space: pre-line;
+  color: white;
+  font-size: 1em;          /* 👈 plus petit */
+  line-height: 0.9em;      /* 👈 plus serré */
+  animation: scrollUp 80s linear infinite;
+}
+
+@keyframes scrollUp {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
