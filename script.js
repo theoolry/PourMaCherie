@@ -90,9 +90,10 @@ function startFalling() {
 function createSpecialText() {
   const container = document.getElementById("falling-container");
 
-  // Limiter le nombre de textes sur mobile
   const isMobile = window.innerWidth <= 480;
-  if (isMobile && Math.random() > 0.4) return; // ~60% des appels ignorés
+
+  // 🔹 Réduire beaucoup la fréquence sur mobile (~20% des appels seulement)
+  if (isMobile && Math.random() > 0.2) return;
 
   const el = document.createElement("div");
   el.classList.add("falling", "special-text");
