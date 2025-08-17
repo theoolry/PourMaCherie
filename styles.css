@@ -155,3 +155,53 @@ body {
     transform: translateY(-100%);
   }
 }
+/* 📱 Responsive Design */
+@media (max-width: 768px) {
+  .scroll-container {
+    width: 80%;   /* plus large sur mobile */
+    height: 150px;
+  }
+
+  .scroll-text {
+    font-size: 1em;
+    line-height: 1.2em;
+  }
+
+  .falling.image {
+    width: 60px;   /* images plus petites */
+  }
+
+  .falling.text {
+    font-size: 1.2em;
+  }
+
+  #start-screen {
+    font-size: 1.5em; /* bouton de départ plus lisible */
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .scroll-container {
+    width: 95%;   /* occupe presque tout l’écran */
+    height: 180px;
+  }
+
+  .scroll-text {
+    font-size: 0.9em;
+    line-height: 1.1em;
+  }
+
+  .falling.image {
+    width: 50px;
+  }
+
+  .falling.text {
+    font-size: 1em;
+  }
+
+  #start-screen {
+    font-size: 1.2em;
+  }
+}
+
